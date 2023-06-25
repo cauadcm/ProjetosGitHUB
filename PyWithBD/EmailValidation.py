@@ -2,8 +2,8 @@ import random
 from email.message import EmailMessage
 import ssl
 import smtplib
-
-
+from htmlEmail import conteudo_html
+from GeraCodigo import codigo
 #SENHA DO GMAIL
 
 password = 'ezdhdsicxtglwclq'
@@ -11,8 +11,7 @@ password = 'ezdhdsicxtglwclq'
 
 #O CÓDIGO DE 5 DIGITOS QUE SERÁ GERADO
 
-codigo = str(random.randint(10000, 99999))
-
+codigo_user = codigo
 
 #FUNÇÃO PARA ENVIAR CÓDIGO
 def enviarcodigo(username, email):
@@ -20,14 +19,17 @@ def enviarcodigo(username, email):
     email_password = password
     email_receiver = email
     subject = 'Olá {}! Aqui está seu código de confirmação.'.format(username)
-    body = 'Copie seu código: {}'.format(codigo)
+    
 
 
     email = EmailMessage()
     email['From'] = email_sender
     email['To'] = email_receiver
     email['subject'] = subject
-    email.set_content(body)
+
+
+
+    email.add_alternative(conteudo_html, subtype= 'html')
 
     context = ssl.create_default_context()
 

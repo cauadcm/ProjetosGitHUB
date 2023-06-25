@@ -1,7 +1,7 @@
 
 from time import sleep
 from EmailValidation import enviarcodigo
-from EmailValidation import codigo
+from EmailValidation import codigo_user
 from ConnectBD import ConnectBD
 
 #CONEXAO DO BD
@@ -21,6 +21,7 @@ GREEN = "\033[0;32m"
 RESET = "\033[0;0m"
 BOLD = "\033[;1m"
 REVERSE = "\033[;7m"
+CLEAR = "\033[;m"
 i1 = True
 i2 = True
 i3 = True
@@ -94,7 +95,7 @@ while True:
                         while i5 == True:
                             confcod = input('Digite o código:')
 
-                            if confcod == codigo:
+                            if confcod == codigo_user:
                                 print('\nE-mail confirmado com sucesso!\n')
                                 sleep(0.7)
                                 while True:
@@ -122,13 +123,13 @@ while True:
 
 
                             else:
-                                print(RED + 'ERRO: o código digitado não é igual ao código enviado')
+                                print(RED + 'ERRO: o código digitado não é igual ao código enviado' + CLEAR)
 
 
 
 
             else:
-                print(RED + "ERRO: O nome de usuário já está em uso.")
+                print(RED + "ERRO: O nome de usuário já está em uso." + CLEAR)
 
 
     elif opcao == '2':
@@ -140,10 +141,10 @@ while True:
             UserLogin = input('Digite o nome de usuário:').lower()
 
             if not UserLogin.strip():
-                print('O nome de usuário não pode estar vazio.')
+                print(RED + 'O nome de usuário não pode estar vazio.' + CLEAR)
 
             if ' ' in UserLogin:
-                print('O nome de usuário não pode ter espaços em branco.')
+                print(RED + 'O nome de usuário não pode ter espaços em branco.' + CLEAR)
             comando = f'SELECT nome FROM usuarios WHERE nome LIKE "{UserLogin}"'
             cursor.execute(comando)
             result = cursor.fetchall()
@@ -203,13 +204,13 @@ while True:
                                     NovaSenha = input('Digite sua nova senha:')
 
                                     if len(NovaSenha) < 6:
-                                        print(RED + 'ERRO: A senha não pode conter menos que 6 caracteres')
+                                        print(RED + 'ERRO: A senha não pode conter menos que 6 caracteres' + CLEAR)
 
                                     if not NovaSenha.strip():
-                                        print('A senha não pode estar vazia')
+                                        print(RED + 'ERRO: A senha não pode estar vazia' + CLEAR)
 
                                     if ' ' in NovaSenha:
-                                        print('A senha não pode ter espaços em branco.')
+                                        print(RED + 'ERRO: A senha não pode ter espaços em branco.' + CLEAR)
 
                                     if not len(NovaSenha) < 6 and NovaSenha.strip() and ' ' not in NovaSenha:
                                         comando = f'UPDATE usuarios ' \
