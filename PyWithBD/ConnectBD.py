@@ -7,7 +7,7 @@ class ConnectBD:
         self.mydb = mysql.connector.connect(
             host='localhost',
             user='root',
-            password='Caua12234#',
+            password='123456789caua',
             port='3306',
             database='pythontest'
         )

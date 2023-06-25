@@ -2,6 +2,9 @@ from GeraCodigo import codigo
 
 codigo_html = codigo
 
+
+#HTML DO ENVIO DO EMAIL COM O CODIGO ATRIBUIDO NA VAR codigo_html
+
 conteudo_html = f"""<html>
 <head>
     <style>
