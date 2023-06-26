@@ -14,16 +14,17 @@ bd.conectar()
 
 cursor = bd.get_cursor()
 
-i1 = True
-i2 = True
-i3 = True
-i4 = True
-i5 = True
-i6 = True
+
+
 
 while True:
-
-
+    i1 = True
+    i2 = True
+    i3 = True
+    i4 = True
+    i5 = True
+    i6 = True
+    i7 = True
     #TELA INICIAL
 
     print(f'\n[ ------------------------- ]\n'
@@ -40,6 +41,7 @@ while True:
     if opcao == '1':
 
         while i2 == True:
+            
 
             #TELA CADASTRO
 
@@ -47,140 +49,152 @@ while True:
                   f'[     TELA DE CADASTRO     ]\n'
                   f'[ -------------------------]\n')
 
-            Username = input('Digite o nome de usuário:').lower()
+            while i7 == True:
+                Username = input('Digite o nome de usuário:').lower()
 
 
-            #CONDICOES DE ERRO
+                #CONDICOES DE ERRO
 
-            if not Username.strip():
-                print('O nome de usuário não pode estar vazio.')
+                if not Username.strip():
+                    print('O nome de usuário não pode estar vazio.')
 
-            if ' ' in Username:
-                print('O nome de usuário não pode ter espaços em branco.')
-
-            #READING EMAIL
-            cmdcond = f'SELECT nome FROM usuarios WHERE nome LIKE "{Username}"'
-            cursor.execute(cmdcond)
-            result = cursor.fetchall()
-
-            nome_existe = False
-
-
-            #VERIFICANDO SE O USERNAME JÁ EXISTE DE ACORDO COM O SELECT DO BD
-
-            for nome in result:
-                if nome[0] == Username:
-                    nome_existe = True
-                    break
-
-
-            #CONDICAO DE EXECUCAO DE USERNAME
-
-            if nome_existe == False:
-
-                while i6 == True:
-
-                    #PEDINDO EMAIL
-
-
-                    Email = input('Digite seu endereço de email:')
-
-                    #CONDICOES DE ERRO
-
-
-                    if not Email.strip():
-                        print('O email não pode estar vazio.')
-
-                    if ' ' in Email:
-                        print('O email não pode ter espaços em branco.')
-
+                if ' ' in Username:
+                    print('O nome de usuário não pode ter espaços em branco.')
+                
+                else:
                     #READING EMAIL
-                    cmdcond = f'SELECT email FROM usuarios WHERE email LIKE "{Email}"'
+                    cmdcond = f'SELECT nome FROM usuarios WHERE nome LIKE "{Username}"'
                     cursor.execute(cmdcond)
                     result = cursor.fetchall()
 
-                    email_existe = False
+                    nome_existe = False
 
 
-                    #VERIFICANDO SE EMAIL JÁ EXISTE DE ACORDO COM O SELECT DO EMAIL
+                    #VERIFICANDO SE O USERNAME JÁ EXISTE DE ACORDO COM O SELECT DO BD
 
-                    for edmail in result:
-                        if edmail[0] == Username:
-                            email_existe = True
+                    for nome in result:
+                        if nome[0] == Username:
+                            nome_existe = True
                             break
-                    
-
-                    #CONDICAO CASO EXECUCAO EMAIL
-
-                    if email_existe == False:
 
 
-                        #ENVIANDO CODIGO PARA O EMAIL
+                    #CONDICAO DE EXECUCAO DE USERNAME
 
-                        enviarcodigo(Username, Email)
-                        print('\nPor favor, confirme seu e-mail {}. Te enviaremos um código'.format(Email))
+                    if nome_existe == False:
 
-                        while i5 == True:
-
-
-                            confcod = input('Digite o código:')
+                        
+                        while i6 == True:
 
 
-                            #CASO DE EXECUCAO DE CONFIRMACAO DE EMAIL
+                            #PEDINDO EMAIL
 
-                            if confcod == codigo_user:
-                                print('\nE-mail confirmado com sucesso!\n')
-                                sleep(0.7)
-                                while True:
-                                    Senha = input("Digite sua senha:")
+                            Email = input('Digite seu endereço de email:')
+                            
 
-                                    #CONDICOES DE ERRO 
+                            #CONDICOES DE ERRO
 
-                                    if len(Senha) < 6:
-                                        print('ERRO: A senha não pode conter menos que 6 caracteres')
+                            if not Email.strip():
+                                print('O email não pode estar vazio.')
 
-                                    if not Senha.strip():
-                                        print('A senha não pode estar vazia')
+                            elif ' ' in Email:
+                                print('O email não pode ter espaços em branco.')
 
-                                    if ' ' in Senha:
-                                        print('A senha não pode ter espaços em branco.')
-
-
-                                    #CONDICOES DE EXECUCAO
-
-                                    if not len(Senha) < 6 and Senha.strip() and ' ' not in Senha:
-                                        comando = f'INSERT INTO usuarios (nome, senha, email) VALUES ("{Username}", "{Senha}","{Email}");'
-                                        cursor.execute(comando)
-                                        bd.mydb.commit()
-                                        print(f'\n************************************************\n'
-                                              f'Digite o número [2] e faça o login da sua conta.\n'
-                                              f'************************************************\n')
-                                        i5 = False
-                                        i6 = False
-                                        i2 = False
-                                        break
-
-
-                            #CASO DE ERRO DE CONFIRMACAO DE EMAIL
-
+                                
                             else:
-                                print('ERRO: o código digitado não é igual ao código enviado')
+                                #READING EMAIL
+                                cmdcond = f'SELECT email FROM usuarios WHERE email LIKE "{Email}"'
+                                cursor.execute(cmdcond)
+                                result = cursor.fetchall()
+
+                                email_existe = False
 
 
+                                #VERIFICANDO SE EMAIL JÁ EXISTE DE ACORDO COM O SELECT DO EMAIL
+
+                                for edmail in result:
+                                    if edmail[0] == Username:
+                                        email_existe = True
+                                        break
+                                
+
+                                #CONDICAO CASO EXECUCAO EMAIL
+
+                                if email_existe == False:
+
+
+                                    #ENVIANDO CODIGO PARA O EMAIL
+
+                                    enviarcodigo(Username, Email)
+                                    print('\nPor favor, confirme seu e-mail {}. Te enviaremos um código'.format(Email))
+
+                                    while i5 == True:
+
+
+                                        confcod = input('Digite o código:')
+
+
+                                        #CASO DE EXECUCAO DE CONFIRMACAO DE EMAIL
+
+                                        if confcod == codigo_user:
+                                            print('\nE-mail confirmado com sucesso!\n')
+                                            sleep(0.7)
+                                            while True:
+                                                Senha = input("Digite sua senha:")
+
+                                                #CONDICOES DE ERRO 
+
+                                                if len(Senha) < 6:
+                                                    print('ERRO: A senha não pode conter menos que 6 caracteres')
+
+                                                if not Senha.strip():
+                                                    print('A senha não pode estar vazia')
+
+                                                if ' ' in Senha:
+                                                    print('A senha não pode ter espaços em branco.')
+
+
+                                                #CONDICOES DE EXECUCAO
+
+                                                if not len(Senha) < 6 and Senha.strip() and ' ' not in Senha:
+                                                    comando = f'INSERT INTO usuarios (nome, senha, email) VALUES ("{Username}", "{Senha}","{Email}");'
+                                                    cursor.execute(comando)
+                                                    bd.mydb.commit()
+                                                    print(f'\n************************************************\n'
+                                                        f'Digite o número [2] e faça o login da sua conta.\n'
+                                                        f'************************************************\n')
+                                                    i5 = False
+                                                    i6 = False
+                                                    i2 = False
+                                                    i7 = False
+                                                    break
+
+
+                                #CASO DE ERRO DE CONFIRMACAO DE EMAIL
+
+                                        else:
+                                            print('ERRO: o código digitado não é igual ao código enviado')
+
+                    else:
+                        print('ERRO: o email digitado já foi logado.')
 
             #CONDICAO DE ERRO DE EXISTENCIA DE USERNAME
 
             else:
                 print("ERRO: O nome de usuário já está em uso.")
 
-
+    #CONDICAO SE FOR FAZER LOGIN
     elif opcao == '2':
         print(f'\n[ ------------------------ ]\n'
               f'[ TELA DE LOGIN DE USUARIO ]\n'
               f'[ -------------------------]\n')
         while i3 == True:
+            
+            #PEDINDO LOGIN
 
             UserLogin = input('Digite o nome de usuário:').lower()
+
+
+            #CASOS DE ERRO NO USERNAME
 
             if not UserLogin.strip():
                 print('O nome de usuário não pode estar vazio.')
@@ -190,6 +204,9 @@ while True:
             comando = f'SELECT nome FROM usuarios WHERE nome LIKE "{UserLogin}"'
             cursor.execute(comando)
             result = cursor.fetchall()
+            
+
+            #VERIFICANDO SE USERNAME ESTÁ CORRETO
 
             nome_correto = False
             for nome in result:
@@ -197,10 +214,14 @@ while True:
                     nome_correto = True
                     break
 
-            if nome_correto == True:
-                i3 = False
+            #USERNAME CORRETO
 
+            if nome_correto == True:
                 while i4 == True:
+
+
+                    #PEDINDO SENHA
+
                     Senha = input("Digite sua senha:")
                     comando = f'SELECT senha FROM usuarios WHERE senha LIKE "{Senha}"'
                     cursor.execute(comando)
@@ -208,12 +229,19 @@ while True:
 
                     senha_correta = False
 
+
+                    #CONDICAO SE SENHA ESTÁ CORRETA
+
                     for senha in result:
                         if senha[0] == Senha:
                             senha_correta = True
                             break
-                    while i1 == True:
-                        if senha_correta == True:
+                    
+
+                    #SENHA CORRETA
+
+                    if senha_correta == True:
+                        while i1 == True:
                             print(f'\n[ ------------------ ]\n'
                                 f'[ LOGADO COM SUCESSO ]\n'
                                 f'[ ------------------ ]\n')
@@ -226,8 +254,9 @@ while True:
                             if opcao == '1':
                                 print('\nSaindo da conta...')
                                 sleep(0.5)
+                                i1 = False
                                 i4 = False
-
+                                i3 = False
                             elif opcao == '3':
 
                                 comando = f'DELETE FROM usuarios WHERE nome = "{UserLogin}" AND senha = "{Senha}"'
@@ -237,7 +266,8 @@ while True:
                                 print('\nSua conta foi deletada com sucesso!')
                                 sleep(0.5)
                                 i4 = False
-
+                                i1 = False
+                                i3 = False
                             elif opcao == '2':
                                 i5 = True
 
@@ -267,19 +297,33 @@ while True:
                                         i5 = False
                                         i4 = False
                                         i1 = False
+                                        i3 = False
 
+
+                            #CONDICAO DE QUE NÃO HÁ OPCAO NO PROGRAMA DENTRO DA CONTA
                             else:
                                 print('\nERRO: Não há esta opção no programa. Por favor digite uma destas listadas.')
-                        else:
-                            print('\nERRO: Não há esta opção no programa. Por favor digite uma destas listadas.')
+
+
+                    #SENHA ERRADA
+
                     else:
                         print('ERRO: A senha digitada está incorreta.')
-                        
+
+
+            #USERNAME ERRADO
+
             else:
                 print('ERRO: O nome de usuário "{}" não existe.'.format(UserLogin))
+    
+
+    #CONDICAO SE FOR SAIR DO PROGRAMA
 
     elif opcao == '3':
         break
+    
+    
+    #CONDICAO DE QUE NAO HÁ A OPCAO NO PROGRAMA DA TELA INICIAL
 
     else:
         print( '\nERRO: Não há esta opção no programa. Por favor digite uma destas listadas.')
