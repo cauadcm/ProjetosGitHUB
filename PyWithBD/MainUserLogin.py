@@ -3,7 +3,9 @@ from time import sleep
 from EmailValidation import enviarcodigo
 from EmailValidation import codigo_user
 from ConnectBD import ConnectBD
-
+import os
+def cls():
+    return os.system('cls')
 #CONEXAO DO BD
 
 bd = ConnectBD()
@@ -26,7 +28,7 @@ while True:
     i6 = True
     i7 = True
     #TELA INICIAL
-
+    cls()
     print(f'\n[ ------------------------- ]\n'
           f'[ LOGIN E CADASTRO DE CONTA ]\n'
           f'[ ------------------------- ]\n')
@@ -44,7 +46,7 @@ while True:
             
 
             #TELA CADASTRO
-
+            cls()
             print(f'\n[ ------------------------ ]\n'
                   f'[     TELA DE CADASTRO     ]\n'
                   f'[ -------------------------]\n')
@@ -159,9 +161,11 @@ while True:
                                                     comando = f'INSERT INTO usuarios (nome, senha, email) VALUES ("{Username}", "{Senha}","{Email}");'
                                                     cursor.execute(comando)
                                                     bd.mydb.commit()
+                                                    cls()
                                                     print(f'\n************************************************\n'
                                                         f'Digite o número [2] e faça o login da sua conta.\n'
                                                         f'************************************************\n')
+                                                    sleep(1)
                                                     i5 = False
                                                     i6 = False
                                                     i2 = False
@@ -169,21 +173,33 @@ while True:
                                                     break
 
 
-                                #CASO DE ERRO DE CONFIRMACAO DE EMAIL
+                                        #CASO DE ERRO DE CONFIRMACAO DE EMAIL
 
                                         else:
                                             print('ERRO: o código digitado não é igual ao código enviado')
 
+
+                                #CASO DE ERRO DE EXISTENCIA DE EMAIL
+
+                                else:
+                                    print('ERRO: o email digitado já foi logado.')
+
+
+                    #CONDICAO DE ERRO DE EXISTENCIA DE USERNAME
+
                     else:
-                        print('ERRO: o email digitado já foi logado.')
+                        print("ERRO: O nome de usuário já está em uso.")
 
-            #CONDICAO DE ERRO DE EXISTENCIA DE USERNAME
 
-            else:
-                print("ERRO: O nome de usuário já está em uso.")
+                                
+
+            
+
+                    
 
     #CONDICAO SE FOR FAZER LOGIN
     elif opcao == '2':
+        cls()
         print(f'\n[ ------------------------ ]\n'
               f'[ TELA DE LOGIN DE USUARIO ]\n'
               f'[ -------------------------]\n')
@@ -242,6 +258,7 @@ while True:
 
                     if senha_correta == True:
                         while i1 == True:
+                            cls()
                             print(f'\n[ ------------------ ]\n'
                                 f'[ LOGADO COM SUCESSO ]\n'
                                 f'[ ------------------ ]\n')
