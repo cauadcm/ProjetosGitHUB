@@ -8,7 +8,7 @@ from GeraCodigo import codigo
 
 #SENHA DO GMAIL
 
-password = 'ezdhdsicxtglwclq'
+password = 'irpvgdtuibgdgzpt'
 
 
 #ATRIBUINDO O CODIGO QUE FOI GERADO NO GERACODIGO
@@ -19,7 +19,7 @@ codigo_user = codigo
 
 #FUNÇÃO PARA ENVIAR CÓDIGO
 def enviarcodigo(username, email):
-    email_sender = 'cauacostacrf@gmail.com'
+    email_sender = 'cauafortests@gmail.com'
     email_password = password
     email_receiver = email
     subject = 'Olá {}! Aqui está seu código de confirmação.'.format(username)

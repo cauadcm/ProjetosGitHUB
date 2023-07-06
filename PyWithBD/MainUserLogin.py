@@ -4,8 +4,13 @@ from EmailValidation import enviarcodigo
 from EmailValidation import codigo_user
 from ConnectBD import ConnectBD
 import os
+
+#DEFININDO CLS PARA APAGAR O TERMINAL
+
 def cls():
     return os.system('cls')
+
+
 #CONEXAO DO BD
 
 bd = ConnectBD()
