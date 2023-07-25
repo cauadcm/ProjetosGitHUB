@@ -1,11 +1,12 @@
 import mysql.connector
 from mysql.connector import Error
 class Dbconnect:
-
+    def __init__(self):
+        self.mydb = None
     #FUNÇÃO PARA CONECTAR O BD COM O CÓDIGO
-    def conectar(self):
+    def connect_database(self):
         try:
-            self.mydb = mysql.connector.connect(
+            self.connection = mysql.connector.connect(
                 host='localhost',
                 user='root',
                 password='',
@@ -13,7 +14,6 @@ class Dbconnect:
                 database='loginscreen'
             )
 
-            self.mydb.close()
         except Exception as erro:
             if erro.errno == mysql.connector.errorcode.ER_ACCESS_DENIED_ERROR:
                 print("Erro de autenticação: Usuário ou senha incorretos.")
@@ -26,4 +26,4 @@ class Dbconnect:
 
     #PEGANDO O CURSOR PARA REFERENCIAR NO CODIGO
     def get_cursor(self):
-        return self.mydb.cursor()
+        return self.connection.cursor()

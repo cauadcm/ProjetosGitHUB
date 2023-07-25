@@ -2,22 +2,20 @@ from email.message import EmailMessage
 import ssl
 import smtplib
 from emailmsg_html import conteudo_html
-from get_code import codigo
-
+from get_code import Getcode
+code = Getcode
 
 #SENHA DO GMAIL
 
 password = 'irpvgdtuibgdgzpt'
 
 
-#ATRIBUINDO O CODIGO QUE FOI GERADO NO GERACODIGO
-
-codigo_user = codigo
+verification_code = code.get_code()
 
 
 
 #FUNÇÃO PARA ENVIAR CÓDIGO
-def enviarcodigo(username, email):
+def send_code(username, email):
     email_sender = 'cauafortests@gmail.com'
     email_password = password
     email_receiver = email
